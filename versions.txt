@@ -1,0 +1,8 @@
+Node: v23.7.0
+NPM: 11.1.0
+
+mcweaponry-landing-page@0.0.0 /Users/jolin/work/mcweaponry-landing-page
+├── @sveltejs/vite-plugin-svelte@5.0.3
+├── svelte@5.28.1
+└── vite@6.3.2
+
