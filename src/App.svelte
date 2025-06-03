@@ -204,7 +204,7 @@
 <footer>
   <div>
     <a href="https://x.com/mcweaponry" target="_blank">@mcweaponry</a> |
-    <a href="https://x.com/scarlettajc" target="_blank">@scarlettajc</a>
+    <a href="https://x.com/scarlettactual" target="_blank">@scarlettactual</a>
   </div>
   <div>© 2025 MC Weaponry</div>
 </footer>
