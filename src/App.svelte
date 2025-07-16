@@ -98,7 +98,7 @@
 
   .hero-content {
     background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(2px);
     border-radius: 8px;
     padding: 1.5rem;
     z-index: 2;
