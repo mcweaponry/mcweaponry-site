@@ -136,11 +136,19 @@
     .gallery {
       grid-template-columns: repeat(2, 1fr);
     }
+
+    .hero {
+      height: 30vh;
+    }
   }
 
   @media (max-width: 768px) {
     .gallery {
       grid-template-columns: 1fr;
+    }
+
+    .hero {
+      height: 15vh;
     }
   }
 
