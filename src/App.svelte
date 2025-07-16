@@ -78,11 +78,11 @@
   /* Hero Section */
   .hero {
     position: relative;
-    background-image: url('/images/hero_gun.webp');
+    background-image: url('/images/gunhands.webp');
     background-size: cover;
     background-position: center;
     color: white;
-    height: 40vh;
+    height: 60vh;
     display: flex;
     align-items: center;
     justify-content: center;
