@@ -224,6 +224,14 @@
     color: #e63946;
   }
 
+  .team-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 1.5rem;
+  }
+
   /* Footer */
   footer {
     text-align: center;
@@ -275,18 +283,21 @@
   <h2>Our Team</h2>
   <div class="team-cards">
     <div class="team-card team-card-madeline">
+      <img src="/images/madeline-photo.webp" alt="Madeline Crumling" />
       <h3>Madeline Crumling - Owner, Master Hand Engraver and Gunsmith</h3>
       <p>Contact: <a href="mailto:madeline@mcweaponry.com">madeline@mcweaponry.com</a></p>
       <p>For her entire life, Madeline has had a strong passion for firearms and took the leap in 2017 to start what we know today as M.C. Weaponry. Over the years she has served clients all around the world with her expert craftsmanship and acute attention to detail. In 2023, her immense talent earned her a seat in the American Custom Gunmakers Guild as a Professional Member for her outstanding hand engraving.</p>
       <p><em>Fun fact: Madeline was once featured on an episode of “Master of Arms” on the Discovery Channel!</em></p>
     </div>
     <div class="team-card team-card-scarlett">
+      <img src="/images/scarlett-photo.webp" alt="Scarlett C." />
       <h3>Scarlett C. - Office Manager</h3>
       <p>Contact: <a href="mailto:scarlett@mcweaponry.com">scarlett@mcweaponry.com</a></p>
       <p>The backbone of the operation, Scarlett can usually be found on her laptop emailing clients or in the workshop as a spare pair of hands. If you’ve ever had the pleasure of working with us then you know just how kind and professional she is when it comes to customer relations. In her free time, Scarlett likes to shoot local 2-Gun and USPSA matches, as well as routinely experience heartbreak and despair as a diehard fan of the Philadelphia Phillies.</p>
       <p><em>Fun fact: Scarlett used to play Magic: the Gathering professionally!</em></p>
     </div>
     <div class="team-card team-card-jasmine">
+      <img src="/images/jasmine-photo.webp" alt="Jasmine C." />
       <h3>Jasmine C. - Apprentice Hand Engraver and Gunsmith</h3>
       <p>Contact: <a href="mailto:jasmine@mcweaponry.com">jasmine@mcweaponry.com</a></p>
       <p>Starting her Apprenticeship in March of 2025, Jasmine has quickly proven herself as an extremely valuable member of the team. In Madeline’s own words, “She’s taken to the craft of custom weapon making faster than anyone I’ve ever mentored in my career.”</p>
