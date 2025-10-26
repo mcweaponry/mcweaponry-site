@@ -1,4 +1,5 @@
 <script>
+  import Header from './lib/Header.svelte';
   import { fade } from 'svelte/transition';
   const galleryImages = [
     'top_left_gun.webp',
@@ -11,6 +12,9 @@
 </script>
 
 <style>
+  :global(html) {
+    scroll-behavior: smooth;
+  }
   /* Global Typography */
   :global(body) {
     margin: 0;
@@ -150,11 +154,29 @@
     .hero {
       height: 15vh;
     }
+
+    .team-cards {
+      flex-direction: column;
+    }
+
+    .team-card {
+      flex-basis: 100%;
+    }
+    .team-card-madeline {
+      order: 1;
+    }
+    .team-card-scarlett {
+      order: 2;
+    }
+    .team-card-jasmine {
+      order: 3;
+    }
   }
 
   /* Sections */
   section {
     padding: 4rem 2rem;
+    text-align: center;
   }
 
   .contact-section {
@@ -167,6 +189,38 @@
   .contact-section p {
     font-size: 1.2rem;
     line-height: 1.6;
+  }
+
+  /* Team Section */
+  .team-cards {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .team-card {
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex-basis: 30%;
+  }
+
+  @media (min-width: 769px) {
+    .team-card-scarlett {
+      order: 1;
+    }
+    .team-card-madeline {
+      order: 2;
+    }
+    .team-card-jasmine {
+      order: 3;
+    }
+  }
+
+  .team-card h3 {
+    color: #e63946;
   }
 
   /* Footer */
@@ -185,8 +239,10 @@
   }
 </style>
 
+<Header />
+
 <!-- Hero Section -->
-<section class="hero">
+<section class="hero" id="home">
   <div class="overlay"></div>
   <div class="hero-content">
     <h1>MC Weaponry</h1>
@@ -195,16 +251,55 @@
   </div>
 </section>
 
+<!-- Introduction Section -->
+<section id="intro">
+  <h2>Introduction</h2>
+  <p>
+    For almost a decade, M.C. Weaponry has been serving the York/Lancaster area with top notch engraving and gunsmithing services. Founded in 2017 by ACGG Master Hand Engraver and Gunsmith Madeline Crumling, we pride ourselves on producing the finest custom firearms on the market.
+  </p>
+  <p>
+    Have an idea for a project you want to make a reality? Send an email to <a href="mailto:scarlett@mcweaponry.com">scarlett@mcweaponry.com</a> for a consultation, and we’d love to try and make your dreams a reality.
+  </p>
+</section>
+
 <!-- Gallery Section -->
-<section class="gallery">
+<section class="gallery" id="gallery">
   {#each galleryImages as image (image)}
     <img src={`/images/${image}`} alt="{image}" class="gallery-image" />
   {/each}
 </section>
 
+<!-- Team Section -->
+<section id="team">
+  <h2>Our Team</h2>
+  <div class="team-cards">
+    <div class="team-card team-card-madeline">
+      <h3>Madeline Crumling - Owner, Master Hand Engraver and Gunsmith</h3>
+      <p>Contact: <a href="mailto:madeline@mcweaponry.com">madeline@mcweaponry.com</a></p>
+      <p>For her entire life, Madeline has had a strong passion for firearms and took the leap in 2017 to start what we know today as M.C. Weaponry. Over the years she has served clients all around the world with her expert craftsmanship and acute attention to detail. In 2023, her immense talent earned her a seat in the American Custom Gunmakers Guild as a Professional Member for her outstanding hand engraving.</p>
+      <p><em>Fun fact: Madeline was once featured on an episode of “Master of Arms” on the Discovery Channel!</em></p>
+    </div>
+    <div class="team-card team-card-scarlett">
+      <h3>Scarlett C. - Office Manager</h3>
+      <p>Contact: <a href="mailto:scarlett@mcweaponry.com">scarlett@mcweaponry.com</a></p>
+      <p>The backbone of the operation, Scarlett can usually be found on her laptop emailing clients or in the workshop as a spare pair of hands. If you’ve ever had the pleasure of working with us then you know just how kind and professional she is when it comes to customer relations. In her free time, Scarlett likes to shoot local 2-Gun and USPSA matches, as well as routinely experience heartbreak and despair as a diehard fan of the Philadelphia Phillies.</p>
+      <p><em>Fun fact: Scarlett used to play Magic: the Gathering professionally!</em></p>
+    </div>
+    <div class="team-card team-card-jasmine">
+      <h3>Jasmine C. - Apprentice Hand Engraver and Gunsmith</h3>
+      <p>Contact: <a href="mailto:jasmine@mcweaponry.com">jasmine@mcweaponry.com</a></p>
+      <p>Starting her Apprenticeship in March of 2025, Jasmine has quickly proven herself as an extremely valuable member of the team. In Madeline’s own words, “She’s taken to the craft of custom weapon making faster than anyone I’ve ever mentored in my career.”</p>
+      <p>If you see her, be sure to ask her about her opinions on various lever action rifles or the exact specifications of an Acro footprint and she’ll be sure to talk your ear off.</p>
+      <p><em>Fun fact: Jasmine used to be a professional astrophotographer!</em></p>
+    </div>
+  </div>
+</section>
+
 <!-- Contact Section -->
-<section class="contact-section">
+<section class="contact-section" id="contact">
   <h2>Contact Us</h2>
+  <p>Address: 854 Country Ln York PA 17406</p>
+  <p>Business Hours: By Appointment Only</p>
   <p>Email <a href="mailto:scarlett@mcweaponry.com">scarlett@mcweaponry.com</a> for inquiries.</p>
 </section>
 
