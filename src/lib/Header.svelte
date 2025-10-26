@@ -18,8 +18,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 2rem 2rem;
     transition: top 0.3s;
+    box-sizing: border-box;
   }
 
   .logo {

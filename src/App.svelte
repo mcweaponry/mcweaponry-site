@@ -91,6 +91,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    margin-top: 70px;
   }
 
   .hero .overlay {
@@ -146,7 +147,7 @@
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     .gallery {
       grid-template-columns: 1fr;
     }
@@ -207,7 +208,7 @@
     flex-basis: 30%;
   }
 
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     .team-card-scarlett {
       order: 1;
     }
