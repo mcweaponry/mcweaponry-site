@@ -116,6 +116,7 @@
 
   /* Gallery Section */
   .gallery {
+    padding-top: 0rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
@@ -176,7 +177,8 @@
 
   /* Sections */
   section {
-    padding: 4rem 2rem;
+    padding: 0rem 2rem;
+    padding-top: 8rem;
     text-align: center;
   }
 
@@ -272,10 +274,13 @@
 </section>
 
 <!-- Gallery Section -->
-<section class="gallery" id="gallery">
-  {#each galleryImages as image (image)}
-    <img src={`/images/${image}`} alt="{image}" class="gallery-image" />
-  {/each}
+<section id="gallery">
+<h2>Gallery</h2>
+  <section class="gallery">
+    {#each galleryImages as image (image)}
+      <img src={`/images/${image}`} alt="{image}" class="gallery-image" />
+    {/each}
+  </section>
 </section>
 
 <!-- Team Section -->
