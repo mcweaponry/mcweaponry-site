@@ -9,6 +9,7 @@ lerna-debug.log*
 
 jules-scratch
 node_modules
+public/images/deprecated/*
 dist
 dist-ssr
 *.local
