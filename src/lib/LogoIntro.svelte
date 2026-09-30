@@ -360,4 +360,29 @@
       background: url('/images/gunhands.webp') center / cover no-repeat;
     }
   }
+
+  /* Short landscape screens (phones held sideways): the card is sized by
+     width and ends up taller than the screen. Centre it below the header
+     (3.75rem here, see Header.svelte), tighten the spacing, and cap the logo
+     by the height left over: 7rem covers the header, the card padding and
+     the two lines of copy, plus a small gutter; 971 / 578 is the logo's
+     aspect ratio. */
+  @media (orientation: landscape) and (max-height: 500px) {
+    .logo-intro {
+      box-sizing: border-box;
+      padding-top: 3.75rem;
+    }
+    .hero-card {
+      padding: 0.75rem 1rem;
+    }
+    .logo {
+      width: min(100%, 560px, calc((100vh - 10.75rem) * 971 / 578));
+      width: min(100%, 560px, calc((100svh - 10.75rem) * 971 / 578));
+      margin-bottom: 0.5rem;
+    }
+    .hero-copy {
+      font-size: 0.95rem;
+      margin: 0.25em 0;
+    }
+  }
 </style>

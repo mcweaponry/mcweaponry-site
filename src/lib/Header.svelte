@@ -128,6 +128,31 @@
       transform: rotate(45deg) translate(-5px, -6px);
     }
   }
+
+  /* Short landscape screens (phones held sideways): 7rem of header is a
+     third of the screen. LogoIntro.svelte offsets the hero card by this
+     height (3.75rem). */
+  @media (orientation: landscape) and (max-height: 500px) {
+    header {
+      padding: 0.75rem 2rem;
+    }
+
+    .logo img {
+      height: 2.25rem;
+    }
+
+    /* At full size the five links need ~480px, so Home and Contact Us fell
+       off the top and bottom of the (unscrollable) overlay. */
+    .mobile-nav {
+      box-sizing: border-box;
+      padding-top: 3.75rem;
+    }
+
+    .mobile-nav a {
+      font-size: 1.5rem;
+      margin: 0.4rem 0;
+    }
+  }
 </style>
 
 <!-- .site-header is the hook LogoIntro uses to fade the header in with the
