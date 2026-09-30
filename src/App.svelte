@@ -307,5 +307,5 @@
     <a href="https://x.com/mcweaponry" target="_blank">@mcweaponry</a> |
     <a href="https://x.com/scarlettactual" target="_blank">@scarlettactual</a>
   </div>
-  <div>© 2025 MC Weaponry</div>
+  <div>© 2026 MC Weaponry</div>
 </footer>

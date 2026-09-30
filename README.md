@@ -89,9 +89,5 @@ crawlers don't run JavaScript, so these tags must stay in `index.html`.
 
 ## Known issues
 
-- On narrow phones the page is slightly wider than the screen (horizontal
-  scroll). It predates the logo intro; likely a section with fixed widths.
-- `Header.svelte` produces Svelte a11y warnings at build time (click handler
-  on a `<div>`).
 - `src/app.css` is mostly unused Vite starter CSS; `#app` still applies a
   1280px max-width and padding, which `LogoIntro` works around.
