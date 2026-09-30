@@ -1,47 +1,97 @@
-# Svelte + Vite
+# M.C. Weaponry — mcweaponry.com
 
-This template should help get you started developing with Svelte in Vite.
+Landing page for M.C. Weaponry, hand engraving and gunsmithing in York, PA.
+A single-page Svelte 5 + Vite site, hosted on GitHub Pages at
+[mcweaponry.com](https://mcweaponry.com).
 
-## Recommended IDE Setup
+## Local development
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
-
-## Need an official Svelte framework?
-
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
-
-## Technical considerations
-
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `checkJs` in the JS template?**
-
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+```sh
+npm install
+npm run dev        # http://localhost:5173
+npm run build      # production build into dist/
+npm run preview    # serve dist/ locally to check the build
 ```
+
+## Deploying
+
+The live site is served from the **`gh-pages` branch**, not `main`. Merging a
+PR does not update the site; someone has to deploy from their machine:
+
+```sh
+git checkout main && git pull
+npm run build && npm run deploy
+```
+
+Things to know:
+
+- **Always build first.** `npm run deploy` only runs `gh-pages -d dist`, so it
+  publishes whatever `dist/` is on disk, stale or not.
+- **The whole `gh-pages` branch is replaced by `dist/` on every deploy.** The
+  custom domain survives only because `public/CNAME` is copied into `dist/`.
+  Don't move or delete it, or mcweaponry.com stops resolving to the site
+  until it's re-added under repo Settings → Pages.
+- **Everything in `public/` on your machine ships**, including files that are
+  gitignored (such as `public/images/deprecated/`).
+- GitHub Pages usually picks up a deploy within a minute or two.
+
+## Project layout
+
+```
+index.html               Page shell, fonts, SEO + link-preview meta tags
+public/                  Served as-is from the site root
+  CNAME                  Custom domain (must stay here, see Deploying)
+  og-image.png           Link-preview image (1200×630)
+  images/                Hero, gallery and team photos (.webp)
+src/
+  App.svelte             Page sections and most styles
+  app.css                Global base styles (leftover Vite template CSS)
+  lib/Header.svelte      Fixed nav bar + mobile menu
+  lib/LogoIntro.svelte   Scroll-driven logo intro / hero
+  assets/mcw-logo.svg    Logo used by the intro
+```
+
+## Logo intro (`src/lib/LogoIntro.svelte`)
+
+The hero is a pinned [GSAP ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/)
+sequence. The logo assembles on a white surface, then crossfades into the dark
+photo hero while the black linework turns white, and finally the subtitle and
+tagline fade in and the page unpins into the Introduction section.
+
+- **Swapping the logo:** replace `src/assets/mcw-logo.svg`. The file must keep
+  the top-level groups `#letter-m`, `#letter-c`, `#text-weaponry` (class
+  `logo-dark-element`), `#Crown`, `#spark` and `#eyes-xx`. IDs are
+  case-sensitive and are mapped in the `SEL` object near the top of the
+  script.
+- **Colours:** the SVG's baked-in black (`#030404`) and pink (`#cc3493`) are
+  swapped at import time for `currentColor` and `--logo-accent`. If a new
+  export uses different hex values, update `SVG_INK` / `SVG_ACCENT`. The
+  on-site pink is set by `--logo-accent` (currently `#e1007a`).
+- **Background photo:** the `url()` in `.stage-dark`.
+- **Timing:** `end: '+=200%'` is the pinned scroll distance. Timeline
+  positions are relative units spread across that distance; the logo finishes
+  assembling around the first 75vh.
+- Visitors with *reduce motion* enabled get the finished hero with no pin.
+
+## Link previews
+
+The Open Graph / Twitter tags in `index.html` control what appears when the
+URL is pasted into iMessage, Slack, WhatsApp, Discord, X, etc. Preview
+crawlers don't run JavaScript, so these tags must stay in `index.html`.
+
+- The image is `public/og-image.png`: 1200×630 PNG, logo kept inside the
+  centre square because some apps crop to a square thumbnail. Keep it under
+  ~300 KB (WhatsApp's limit).
+- Apps cache previews for days. After changing them, refresh via the
+  [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) or
+  [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/);
+  others update on their own schedule.
+
+## Known issues
+
+- On narrow phones the page is slightly wider than the screen (horizontal
+  scroll). It predates the logo intro; likely a section with fixed widths.
+- `Header.svelte` produces Svelte a11y warnings at build time (click handler
+  on a `<div>`).
+- `src/app.css` is mostly unused Vite starter CSS; `#app` still applies a
+  1280px max-width and padding, which `LogoIntro` works around.
