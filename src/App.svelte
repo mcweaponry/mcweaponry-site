@@ -225,6 +225,17 @@
       padding: 1.25rem;
     }
   }
+
+  /* Portrait phones: the hero is shorter than the screen there (see
+     LogoIntro.svelte), so pull the Introduction heading up under it, into
+     view when the intro finishes, even on a 375x667 phone. scroll-margin keeps
+     the nav link from parking the heading under the fixed 7rem header. */
+  @media (max-width: 768px) and (orientation: portrait) {
+    #intro {
+      padding-top: 1.5rem;
+      scroll-margin-top: 7rem;
+    }
+  }
 </style>
 
 <Header />

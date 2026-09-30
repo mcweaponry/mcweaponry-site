@@ -116,19 +116,32 @@
         .to(SEL.spark, { scale: 1, duration: 0.3, ease: 'back.out(2.5)' }, 1.0)
         .to(SEL.text, { yPercent: 0, opacity: 1, duration: 0.5 }, 0.95);
 
+      // On portrait phones the hero is shorter than the screen (see the CSS),
+      // so while pinned the pin spacer shows below it. Colour it to match the
+      // stage: white for the assembly, dark once the photo fades in.
+      const spacer = root.parentElement.classList.contains('pin-spacer') ? root.parentElement : null;
+      if (spacer) gsap.set(spacer, { backgroundColor: '#ffffff' });
+
       // ---- Phase 2: morph + reveal ---------------------------------------
       // Background crossfades to the photo while the linework goes black ->
       // white. Pink accents aren't touched, so they stay pink throughout.
       tl.to('.stage-dark', { opacity: 1, duration: 1, ease: 'power1.inOut' }, 1.7)
         .to(SEL.dark, { color: '#ffffff', duration: 1, ease: 'power1.inOut' }, 1.7)
         .to('.hero-card', { '--card-alpha': 0.4, duration: 1, ease: 'power1.inOut' }, 1.9);
+      if (spacer) tl.to(spacer, { backgroundColor: '#0e0e0e', duration: 1, ease: 'power1.inOut' }, 1.7);
 
       // ---- Phase 3: hand-off to the live hero ----------------------------
       // The header fades in alongside the copy.
       if (siteHeader) tl.to(siteHeader, { autoAlpha: 1, duration: 0.6, ease: 'none' }, 2.6);
-      tl.to('.hero-copy', { opacity: 1, y: 0, duration: 0.6, stagger: 0.2 }, 2.6)
-        // Short hold so the finished hero rests before the pin releases.
-        .to({}, { duration: 0.5 });
+      tl.to('.hero-copy', { opacity: 1, y: 0, duration: 0.6, stagger: 0.2 }, 2.6);
+      // Short hold so the finished hero rests before the pin releases. Not on
+      // portrait phones: the hero is shorter than the screen there, so the
+      // hold would be dead scroll while the Introduction creeps up below it.
+      // Without it the Introduction lands as the copy finishes. Checked once
+      // on load, like the rest of the timeline.
+      if (!window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches) {
+        tl.to({}, { duration: 0.5 });
+      }
     }, root);
 
     return () => {
@@ -316,6 +329,35 @@
     }
     .hero-copy {
       font-size: 0.95rem;
+    }
+  }
+
+  /* Portrait phones: a full-screen `cover` crop shows only the middle third
+     of the landscape photo and cuts off the guns. Instead the hero is only as
+     tall as the header plus the photo at 150% of the screen width (5:4, so
+     120vw tall), and always at least 6.5rem short of the screen so the
+     Introduction heading (App.svelte) is in view when the intro ends. The
+     photo fills the area below the header (7rem: Header.svelte's 2rem
+     padding either side of a 3rem logo) and the card sits at the top of it
+     so the guns show underneath.
+     While pinned, the area below the shorter hero is the pin spacer, which
+     the timeline colours to match (see `spacer` above). */
+  @media (max-width: 768px) and (orientation: portrait) {
+    .logo-intro {
+      box-sizing: border-box;
+      height: min(calc(7rem + 120vw), calc(100vh - 6.5rem));
+      height: min(calc(7rem + 120vw), calc(100svh - 6.5rem));
+      padding-top: calc(7rem + 0.75rem);
+      align-items: flex-start;
+    }
+    .stage-dark {
+      background: #0e0e0e;
+    }
+    .stage-dark::before {
+      content: '';
+      position: absolute;
+      inset: 7rem 0 0;
+      background: url('/images/gunhands.webp') center / cover no-repeat;
     }
   }
 </style>
