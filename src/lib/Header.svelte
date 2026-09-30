@@ -1,4 +1,13 @@
 <script>
+  // Same file as the intro logo (see LogoIntro.svelte), recoloured for the
+  // dark header: white linework, site pink accents. An <img> rather than
+  // inline markup so its IDs don't clash with the intro's animated copy.
+  import rawLogo from '../assets/mcw-logo.svg?raw';
+
+  const logoSrc = `data:image/svg+xml,${encodeURIComponent(
+    rawLogo.replace(/#030404/gi, '#f5f5f5').replace(/#cc3493/gi, '#e1007a')
+  )}`;
+
   let isOpen = false;
 
   function toggleMenu() {
@@ -24,10 +33,14 @@
   }
 
   .logo {
-    font-family: 'Anton', sans-serif;
-    font-size: 1.5rem;
-    color: #f5f5f5;
-    text-decoration: none;
+    display: block;
+    line-height: 0;
+  }
+
+  .logo img {
+    display: block;
+    height: 3rem;
+    width: auto;
   }
 
   nav a {
@@ -93,11 +106,10 @@
       display: none;
     }
 
+    /* Stays in the header's flex row so it lines up with the logo; the
+       header (z-index 999) already sits above the open menu. */
     .hamburger {
       display: block;
-      position: fixed;
-      top: 1rem;
-      right: 2rem;
     }
 
     .mobile-nav.open {
@@ -121,7 +133,7 @@
 <!-- .site-header is the hook LogoIntro uses to fade the header in with the
      hero copy. -->
 <header class="site-header">
-  <a href="/" class="logo">MC Weaponry</a>
+  <a href="/" class="logo"><img src={logoSrc} alt="MC Weaponry" /></a>
 
   <nav>
     <a href="#home">Home</a>
