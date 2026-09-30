@@ -86,7 +86,7 @@
         scrollTrigger: {
           trigger: root,
           start: 'top top',
-          end: '+=225%', // scroll distance while pinned (~225vh)
+          end: '+=200%', // scroll distance while pinned (~200vh)
           pin: true,
           scrub: 1, // 1s of smoothing between scroll position and playhead
           anticipatePin: 1
@@ -96,26 +96,29 @@
       // ---- Phase 1: assembly on the light surface -------------------------
       // Timeline positions are arbitrary units; with scrub they're mapped
       // proportionally across the pinned scroll distance.
-      tl.to('.scroll-cue', { opacity: 0, duration: 0.3, ease: 'none' }, 0)
-        .to(SEL.m, { xPercent: 0, opacity: 1, duration: 1 }, 0)
-        .to(SEL.c, { xPercent: 0, opacity: 1, duration: 1 }, 0.15)
-        .to(SEL.crown, { yPercent: 0, rotation: 0, opacity: 1, duration: 1, ease: 'back.out(1.6)' }, 0.7)
+      // Assembly is kept short relative to the rest of the timeline so the
+      // whole logo lands within roughly the first 75vh of scroll.
+      // The cue sits over the logo, so it clears before the letters arrive.
+      tl.to('.scroll-cue', { opacity: 0, duration: 0.1, ease: 'none' }, 0)
+        .to(SEL.m, { xPercent: 0, opacity: 1, duration: 0.55 }, 0.1)
+        .to(SEL.c, { xPercent: 0, opacity: 1, duration: 0.55 }, 0.18)
+        .to(SEL.crown, { yPercent: 0, rotation: 0, opacity: 1, duration: 0.6, ease: 'back.out(1.6)' }, 0.4)
         // Stamp: drop from 3x, overshoot below 1, settle. The opacity snaps in
         // quickly so it reads as an impact rather than a fade.
-        .to(SEL.eyes, { opacity: 1, duration: 0.1, ease: 'none' }, 1.35)
-        .to(SEL.eyes, { scale: 1, duration: 0.6, ease: 'back.out(4)' }, 1.35)
-        .to(SEL.spark, { scale: 1, duration: 0.5, ease: 'back.out(2.5)' }, 1.7)
-        .to(SEL.text, { yPercent: 0, opacity: 1, duration: 0.8 }, 1.6);
+        .to(SEL.eyes, { opacity: 1, duration: 0.06, ease: 'none' }, 0.8)
+        .to(SEL.eyes, { scale: 1, duration: 0.4, ease: 'back.out(4)' }, 0.8)
+        .to(SEL.spark, { scale: 1, duration: 0.3, ease: 'back.out(2.5)' }, 1.0)
+        .to(SEL.text, { yPercent: 0, opacity: 1, duration: 0.5 }, 0.95);
 
       // ---- Phase 2: morph + reveal ---------------------------------------
       // Background crossfades to the photo while the linework goes black ->
       // white. Pink accents aren't touched, so they stay pink throughout.
-      tl.to('.stage-dark', { opacity: 1, duration: 1, ease: 'power1.inOut' }, 2.6)
-        .to(SEL.dark, { color: '#ffffff', duration: 1, ease: 'power1.inOut' }, 2.6)
-        .to('.hero-card', { '--card-alpha': 0.4, duration: 1, ease: 'power1.inOut' }, 2.8);
+      tl.to('.stage-dark', { opacity: 1, duration: 1, ease: 'power1.inOut' }, 1.7)
+        .to(SEL.dark, { color: '#ffffff', duration: 1, ease: 'power1.inOut' }, 1.7)
+        .to('.hero-card', { '--card-alpha': 0.4, duration: 1, ease: 'power1.inOut' }, 1.9);
 
       // ---- Phase 3: hand-off to the live hero ----------------------------
-      tl.to('.hero-copy', { opacity: 1, y: 0, duration: 0.6, stagger: 0.2 }, 3.5)
+      tl.to('.hero-copy', { opacity: 1, y: 0, duration: 0.6, stagger: 0.2 }, 2.6)
         // Short hold so the finished hero rests before the pin releases.
         .to({}, { duration: 0.5 });
     }, root);
@@ -250,24 +253,28 @@
     color: #ffffff;
   }
 
+  /* Sits where the logo will assemble so the first screen isn't just white.
+     It fades out in the first sliver of scroll, before the letters land. */
   .scroll-cue {
     position: absolute;
-    bottom: 2rem;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     z-index: 2;
-    font-size: 0.75rem;
-    letter-spacing: 0.3em;
+    font-size: clamp(1.25rem, 3vw, 2rem);
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-indent: 0.35em; /* balances the trailing letter-spacing so it centres */
     text-transform: uppercase;
-    color: #555;
+    color: #333;
   }
 
   .scroll-cue::after {
     content: '';
     display: block;
-    width: 1px;
-    height: 2.5rem;
-    margin: 0.75rem auto 0;
+    width: 3px;
+    height: clamp(4rem, 10vh, 6rem);
+    margin: 1rem auto 0;
     background: currentColor;
     animation: cue 1.8s ease-in-out infinite;
     transform-origin: top;
