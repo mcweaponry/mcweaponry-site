@@ -1,5 +1,6 @@
 <script>
   import Header from './lib/Header.svelte';
+  import LogoIntro from './lib/LogoIntro.svelte';
   import { fade } from 'svelte/transition';
   const galleryImages = [
     'top_left_gun.webp',
@@ -79,41 +80,6 @@
     text-decoration: underline;
   }
 
-  /* Hero Section */
-  .hero {
-    position: relative;
-    background-image: url('/images/gunhands.webp');
-    background-size: cover;
-    background-position: center;
-    color: white;
-    height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-top: 70px;
-  }
-
-  .hero .overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-  }
-
-  .hero-content {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(2px);
-    border-radius: 8px;
-    padding: 1.5rem;
-    z-index: 2;
-  }
-
-  .hero h1 {
-    font-size: 3.5rem;
-    letter-spacing: 2px;
-  }
-
   /* Gallery Section */
   .gallery {
     padding-top: 0rem;
@@ -142,19 +108,11 @@
     .gallery {
       grid-template-columns: repeat(2, 1fr);
     }
-
-    .hero {
-      height: 30vh;
-    }
   }
 
   @media (max-width: 1024px) {
     .gallery {
       grid-template-columns: 1fr;
-    }
-
-    .hero {
-      height: 15vh;
     }
 
     .team-cards {
@@ -252,15 +210,8 @@
 
 <Header />
 
-<!-- Hero Section -->
-<section class="hero" id="home">
-  <div class="overlay"></div>
-  <div class="hero-content">
-    <h1>MC Weaponry</h1>
-    <p>07/02FFL • Founded by ACGG Master Engraver Madeline Crumling</p>
-    <p>We produce the finest in hand engraved firearms</p>
-  </div>
-</section>
+<!-- Hero: scroll-driven logo assembly that settles into the dark hero -->
+<LogoIntro />
 
 <!-- Introduction Section -->
 <section id="intro">
