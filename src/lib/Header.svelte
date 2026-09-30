@@ -42,13 +42,25 @@
     color: #e63946;
   }
 
+  /* A real <button> for keyboard and screen-reader users; the resets undo
+     the global button styles in app.css. */
   .hamburger {
     display: none;
     cursor: pointer;
     z-index: 1001;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
   }
 
-  .hamburger div {
+  /* Keep the focus ring for keyboard users, not after a tap or click. */
+  .hamburger:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  .hamburger span {
+    display: block;
     width: 25px;
     height: 3px;
     background-color: #f5f5f5;
@@ -67,7 +79,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    /* Just under the header (999) so its close button stays on top. */
+    z-index: 998;
   }
 
   .mobile-nav a {
@@ -105,7 +118,9 @@
   }
 </style>
 
-<header>
+<!-- .site-header is the hook LogoIntro uses to fade the header in with the
+     hero copy. -->
+<header class="site-header">
   <a href="/" class="logo">MC Weaponry</a>
 
   <nav>
@@ -116,15 +131,23 @@
     <a href="#contact">Contact Us</a>
   </nav>
 
-  <div class="hamburger" on:click={toggleMenu} class:open={isOpen}>
-    <div class="line1"></div>
-    <div class="line2"></div>
-    <div class="line3"></div>
-  </div>
+  <button
+    type="button"
+    class="hamburger"
+    class:open={isOpen}
+    on:click={toggleMenu}
+    aria-label={isOpen ? 'Close menu' : 'Open menu'}
+    aria-expanded={isOpen}
+    aria-controls="mobile-nav"
+  >
+    <span class="line1"></span>
+    <span class="line2"></span>
+    <span class="line3"></span>
+  </button>
 </header>
 
 {#if isOpen}
-  <div class="mobile-nav" class:open={isOpen}>
+  <div class="mobile-nav" id="mobile-nav" class:open={isOpen}>
     <a href="#home" on:click={toggleMenu}>Home</a>
     <a href="#intro" on:click={toggleMenu}>Introduction</a>
     <a href="#gallery" on:click={toggleMenu}>Gallery</a>
