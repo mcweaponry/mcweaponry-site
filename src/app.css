@@ -22,10 +22,11 @@ a:hover {
   color: #535bf2;
 }
 
+/* Plain block layout. The Vite template made body a flex container, which
+   let #app grow past the viewport to fit wide content (horizontal scroll on
+   phones and tablets). */
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }

@@ -80,6 +80,12 @@
       gsap.set(SEL.spark, { scale: 0, transformOrigin: '0% 100%' }); // bottom-left
       gsap.set(SEL.text, { yPercent: 120, opacity: 0 });
       gsap.set(SEL.dark, { color: '#000000' });
+      // The site header (Header.svelte) lives outside this component, so it's
+      // passed as an element rather than a scoped selector. autoAlpha also
+      // sets visibility: hidden, which keeps the hidden links out of the tab
+      // order. Reduced motion skips all of this, so the header just shows.
+      const siteHeader = document.querySelector('.site-header');
+      if (siteHeader) gsap.set(siteHeader, { autoAlpha: 0 });
 
       const tl = gsap.timeline({
         defaults: { ease: 'power3.out' },
@@ -118,6 +124,8 @@
         .to('.hero-card', { '--card-alpha': 0.4, duration: 1, ease: 'power1.inOut' }, 1.9);
 
       // ---- Phase 3: hand-off to the live hero ----------------------------
+      // The header fades in alongside the copy.
+      if (siteHeader) tl.to(siteHeader, { autoAlpha: 1, duration: 0.6, ease: 'none' }, 2.6);
       tl.to('.hero-copy', { opacity: 1, y: 0, duration: 0.6, stagger: 0.2 }, 2.6)
         // Short hold so the finished hero rests before the pin releases.
         .to({}, { duration: 0.5 });

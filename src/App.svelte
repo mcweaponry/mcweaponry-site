@@ -69,6 +69,8 @@
     font-size: 1.125rem;
     margin-bottom: 1.25rem;
     color: #ddd;
+    /* Long email addresses break rather than overflow on narrow phones. */
+    overflow-wrap: anywhere;
   }
 
   :global(a) {
@@ -84,7 +86,7 @@
   .gallery {
     padding-top: 0rem;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
     margin: 4rem auto;
     width: 90%;
@@ -106,13 +108,13 @@
 
   @media (max-width: 1024px) {
     .gallery {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
   @media (max-width: 1024px) {
     .gallery {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
 
     .team-cards {
@@ -205,6 +207,23 @@
   footer a {
     color: #999;
     margin: 0 0.5rem;
+  }
+
+  /* Phones: #app already provides a 2rem gutter, so drop the section's own
+     side padding and tighten the cards to leave room for the text. */
+  @media (max-width: 768px) {
+    section {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .contact-section {
+      padding: 3rem 1rem;
+    }
+
+    .team-card {
+      padding: 1.25rem;
+    }
   }
 </style>
 
