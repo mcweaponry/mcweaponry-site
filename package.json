@@ -15,5 +15,8 @@
     "svelte": "^5.23.1",
     "vite": "^6.3.1",
     "vite-plugin-static-copy": "^2.3.1"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0"
   }
 }
